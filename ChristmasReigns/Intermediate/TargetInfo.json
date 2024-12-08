@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "ChristmasReigns",
+			"Path": "..\\Source\\ChristmasReigns.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "ChristmasReignsEditor",
+			"Path": "..\\Source\\ChristmasReignsEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
