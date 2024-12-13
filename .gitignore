@@ -1,6 +1,9 @@
 # Visual Studio 2015 user specific files
 .vs/
 
+# Don't ignore the main .dll
+!*/Binaries/Win64/UnrealEditor-ChristmasReigns.dll
+
 # Compiled Object files
 *.slo
 *.lo
@@ -46,6 +49,7 @@ SourceArt/**/*.png
 SourceArt/**/*.tga
 
 # Binary Files
+Binaries/
 Binaries/*
 Plugins/**/Binaries/*
 
