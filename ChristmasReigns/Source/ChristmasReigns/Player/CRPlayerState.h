@@ -13,4 +13,6 @@ UCLASS()
 class CHRISTMASREIGNS_API ACRPlayerState : public APlayerState
 {
 	GENERATED_BODY()
+public:
+	
 };
