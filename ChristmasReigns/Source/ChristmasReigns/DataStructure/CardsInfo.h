@@ -11,9 +11,21 @@ class UGameplayEffect;
 struct FCRCardInfo;
 
 /**
- * One choice of a card
+ * How the ID of a ard is defined
  */
 USTRUCT(BlueprintType)
+struct FCardIDType
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditDefaultsOnly)
+	FString Name;
+};
+
+/**
+ * One choice of a card
+ */
+USTRUCT(BlueprintType, DisplayName="{TextToDisplay}")
 struct FCRChoiceInfo
 {
 	GENERATED_BODY()
@@ -25,7 +37,7 @@ struct FCRChoiceInfo
 	TSubclassOf<UGameplayEffect> EffectToApplyOnChoice;
 
 	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UCardsInfo> NextCard;
+	FCardIDType NextCardID {""};
 };
 
 /**
@@ -37,7 +49,10 @@ struct FCRCardInfo
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly)
-	FString CardIDName {""};
+	FCardIDType CardIDName {""};
+	
+	UPROPERTY(EditDefaultsOnly)
+	FString CharacterName {""};
 
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UTexture2D> CardImage;
