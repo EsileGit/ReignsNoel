@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystemComponent.h"
 #include "AttributeSet.h"
 #include "CRAttributeSet.generated.h"
 
@@ -25,6 +26,26 @@ public:
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual void PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const override;
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue) override;
+	
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Mental)
+	FGameplayAttributeData Mental{50.f};
+	ATTRIBUTE_ACCESSORS(UCRAttributeSet, Mental)
+	
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxMental)
+	FGameplayAttributeData MaxMental {100.f};
+	ATTRIBUTE_ACCESSORS(UCRAttributeSet, MaxMental)
+
+protected:
+	
+	/**
+	* These OnRep functions exist to make sure that the ability system internal representations are synchronized properly during replication
+	**/
+	UFUNCTION()
+	virtual void OnRep_Mental(const FGameplayAttributeData& OldMental);
+	UFUNCTION()
+	virtual void OnRep_MaxMental(const FGameplayAttributeData& OldMaxMental);
 	
 private:
 	void ClampAttributeOnChange(FGameplayAttribute const& attribute, float& newValue) const;

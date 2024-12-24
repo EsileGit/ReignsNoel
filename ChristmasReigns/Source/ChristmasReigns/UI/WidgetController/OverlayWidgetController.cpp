@@ -9,4 +9,9 @@ void UOverlayWidgetController::BroadcastInitialValues() const
 {
 	Super::BroadcastInitialValues();
 	
+	if (UCRAttributeSet const* pAttributeSet =  Cast<UCRAttributeSet>(AttributeSet))
+	{
+		OnMentalChanged.Broadcast(pAttributeSet->GetMental());
+		OnMaxMentalChanged.Broadcast(pAttributeSet->GetMaxMental());
+	}
 }

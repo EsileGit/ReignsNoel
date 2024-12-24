@@ -20,4 +20,8 @@ public:
 	virtual void BroadcastInitialValues() const override;
 	
 private:
+	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	FOnAttributeModifiedSignature OnMentalChanged;
+	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	FOnAttributeModifiedSignature OnMaxMentalChanged;
 };
