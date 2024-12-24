@@ -3,6 +3,7 @@
 
 # Don't ignore the main .dll
 !*/Binaries/Win64/UnrealEditor-ChristmasReigns.dll
+!ChristmasReigns/Binaries/Win64/UnrealEditor-ChristmasReigns.dll
 
 # Compiled Object files
 *.slo
