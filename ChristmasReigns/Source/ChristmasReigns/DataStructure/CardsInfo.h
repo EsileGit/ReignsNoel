@@ -36,8 +36,8 @@ struct FCRChoiceInfo
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UGameplayEffect> EffectToApplyOnChoice;
 
-	UPROPERTY(EditDefaultsOnly)
-	FCardIDType NextCardID {""};
+	UPROPERTY(EditDefaultsOnly, meta=(TitleProperty="{Name}"))
+	TArray<FCardIDType> NextCardIDs {};
 };
 
 /**
