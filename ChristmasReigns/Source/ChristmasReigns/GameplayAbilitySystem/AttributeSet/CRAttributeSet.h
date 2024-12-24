@@ -36,6 +36,22 @@ public:
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxMental)
 	FGameplayAttributeData MaxMental {100.f};
 	ATTRIBUTE_ACCESSORS(UCRAttributeSet, MaxMental)
+	
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Popularity)
+	FGameplayAttributeData Popularity{50.f};
+	ATTRIBUTE_ACCESSORS(UCRAttributeSet, Popularity)
+	
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxPopularity)
+	FGameplayAttributeData MaxPopularity {100.f};
+	ATTRIBUTE_ACCESSORS(UCRAttributeSet, MaxPopularity)
+	
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MotherPride)
+	FGameplayAttributeData MotherPride{50.f};
+	ATTRIBUTE_ACCESSORS(UCRAttributeSet, MotherPride)
+	
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxMotherPride)
+	FGameplayAttributeData MaxMotherPride {100.f};
+	ATTRIBUTE_ACCESSORS(UCRAttributeSet, MaxMotherPride)
 
 protected:
 	
@@ -46,6 +62,16 @@ protected:
 	virtual void OnRep_Mental(const FGameplayAttributeData& OldMental);
 	UFUNCTION()
 	virtual void OnRep_MaxMental(const FGameplayAttributeData& OldMaxMental);
+	
+	UFUNCTION()
+	virtual void OnRep_Popularity(const FGameplayAttributeData& OldPopularity);
+	UFUNCTION()
+	virtual void OnRep_MaxPopularity(const FGameplayAttributeData& OldMaxPopularity);
+	
+	UFUNCTION()
+	virtual void OnRep_MotherPride(const FGameplayAttributeData& OldMotherPride);
+	UFUNCTION()
+	virtual void OnRep_MaxMotherPride(const FGameplayAttributeData& OldMaxMotherPride);
 	
 private:
 	void ClampAttributeOnChange(FGameplayAttribute const& attribute, float& newValue) const;

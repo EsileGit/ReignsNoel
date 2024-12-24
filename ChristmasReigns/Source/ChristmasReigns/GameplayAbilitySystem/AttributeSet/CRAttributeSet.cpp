@@ -35,6 +35,8 @@ void UCRAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	
 	DOREPLIFETIME_CONDITION_NOTIFY(UCRAttributeSet, Mental, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UCRAttributeSet, Popularity, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UCRAttributeSet, MotherPride, COND_None, REPNOTIFY_Always);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -54,10 +56,38 @@ void UCRAttributeSet::OnRep_MaxMental(const FGameplayAttributeData& OldMaxMental
 }
 
 //----------------------------------------------------------------------------------------------------------------------
+void UCRAttributeSet::OnRep_Popularity(const FGameplayAttributeData& OldPopularity)
+{
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+void UCRAttributeSet::OnRep_MaxPopularity(const FGameplayAttributeData& OldMaxPopularity)
+{
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+void UCRAttributeSet::OnRep_MotherPride(const FGameplayAttributeData& OldMotherPride)
+{
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+void UCRAttributeSet::OnRep_MaxMotherPride(const FGameplayAttributeData& OldMaxMotherPride)
+{
+}
+
+//----------------------------------------------------------------------------------------------------------------------
 void UCRAttributeSet::ClampAttributeOnChange(FGameplayAttribute const& attribute, float& newValue) const
 {
 	if (attribute == GetMentalAttribute())
 	{
 		newValue = FMath::Clamp(newValue, 0.f, GetMaxMental());
+	}
+	if (attribute == GetPopularityAttribute())
+	{
+		newValue = FMath::Clamp(newValue, 0.f, GetMaxPopularity());
+	}
+	if (attribute == GetMotherPrideAttribute())
+	{
+		newValue = FMath::Clamp(newValue, 0.f, GetMaxMotherPride());
 	}
 }
