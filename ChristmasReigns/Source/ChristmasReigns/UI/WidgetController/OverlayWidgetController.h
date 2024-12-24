@@ -24,4 +24,12 @@ private:
 	FOnAttributeModifiedSignature OnMentalChanged;
 	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
 	FOnAttributeModifiedSignature OnMaxMentalChanged;
+	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	FOnAttributeModifiedSignature OnPopularityChanged;
+	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	FOnAttributeModifiedSignature OnMaxPopularityChanged;
+	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	FOnAttributeModifiedSignature OnMotherPrideChanged;
+	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
+	FOnAttributeModifiedSignature OnMaxMotherPrideChanged;
 };
