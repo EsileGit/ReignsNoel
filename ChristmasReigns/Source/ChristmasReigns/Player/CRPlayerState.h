@@ -23,6 +23,7 @@ class CHRISTMASREIGNS_API ACRPlayerState : public APlayerState, public IAbilityS
 	
 public:
 	ACRPlayerState();
+	UCRAttributeSet* ModifyAttributeSet() {return AttributeSet;}
 	
 	/** Implement IAbilitySystemInterface */
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override {return AbilitySystemComponent;}
@@ -44,4 +45,5 @@ private:
 	void InitializeAttributes() const;
 	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> const& gameplayEffectClass, float level) const;
 	void InitializeASC();
+	void InitializeHUD();
 };

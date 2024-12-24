@@ -27,7 +27,17 @@ class CHRISTMASREIGNS_API UCRUserWidget : public UUserWidget
 {
 	GENERATED_BODY()
 	
+public:
+	UFUNCTION(BlueprintCallable)
+	void SetWidgetController(UObject* inWidgetController);
+	
 protected:
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Gauge")
 	FGaugeData GetGaugeData();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnWidgetControllerSet();
+	
+	UPROPERTY(BlueprintReadOnly)
+	TObjectPtr<UObject> WidgetController;
 };

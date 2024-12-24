@@ -3,6 +3,15 @@
 
 #include "CRUserWidget.h"
 
+
+//----------------------------------------------------------------------------------------------------------------------
+void UCRUserWidget::SetWidgetController(UObject* inWidgetController)
+{
+	WidgetController = inWidgetController;
+	OnWidgetControllerSet();
+}
+
+//----------------------------------------------------------------------------------------------------------------------
 FGaugeData UCRUserWidget::GetGaugeData()
 {
 	FGaugeData data;

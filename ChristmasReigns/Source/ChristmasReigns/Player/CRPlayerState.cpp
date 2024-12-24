@@ -6,6 +6,7 @@
 #include "CRPlayerController.h"
 
 #include "ChristmasReigns/GameplayAbilitySystem/AttributeSet/CRAttributeSet.h"
+#include "ChristmasReigns/UI/CRHud.h"
 
 //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
@@ -33,6 +34,7 @@ void ACRPlayerState::BeginPlay()
 
 	InitializeASC();
 	InitializeAttributes();
+	InitializeHUD();
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -71,21 +73,25 @@ void ACRPlayerState::InitializeASC()
 {
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 
-	// Player controllers of other players are only present on server. Expect null pointers here
-	if (ACRPlayerController* pPlayerController = Cast<ACRPlayerController>(GetOwner()))
-	{
-		//// Hud only present locally
-		//if (AMMHud* pHud = Cast<AMMHud>(pPlayerController->GetHUD()))
-		//{
-		//	pHud->InitOverlay(pPlayerController, pPlayerState, AbilitySystemComponent, AttributeSet);
-		//}
-		//SetGenericTeamId(pPlayerController->GetGenericTeamId());
-	}
 	if (IsValid(AttributeSet))
 	{
 		//AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSet->GetFearAttribute()).
 		//AddUObject(this, &AMMCharacterHero::OnFearChanged);
 		//AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSet->GetMaxFearAttribute()).
 		//AddUObject(this, &AMMCharacterHero::OnFearChanged);
+	}
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+void ACRPlayerState::InitializeHUD()
+{
+	// Player controllers of other players are only present on server. Expect null pointers here
+	if (ACRPlayerController* pPlayerController = Cast<ACRPlayerController>(GetOwner()))
+	{
+		// Hud only present locally
+		if (ACRHud* pHud = Cast<ACRHud>(pPlayerController->GetHUD()))
+		{
+			pHud->InitOverlay(pPlayerController, this, AbilitySystemComponent, AttributeSet);
+		}
 	}
 }
