@@ -7,6 +7,7 @@
 #include "CRWidgetController.generated.h"
 
 class UAttributeSet;
+class UCRAttributeSet;
 class UAbilitySystemComponent;
 
 USTRUCT(BlueprintType)
@@ -52,6 +53,8 @@ public:
 	virtual void BindCallbacksToDependencies() const {}
 	UFUNCTION(BlueprintCallable)
 	virtual void UnbindAllDelegates() {}
+
+	UCRAttributeSet* ModifyCRAttributeSet();
 	
 	UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
 	TObjectPtr<APlayerController> PlayerController;
@@ -64,4 +67,9 @@ public:
 	
 	UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
 	TObjectPtr<UAttributeSet> AttributeSet;
+
+	/* Cast versions */
+	TObjectPtr<UCRAttributeSet> CRAttributeSet;
+	//TObjectPtr<UCRAttributeSet> CRAttributeSet;
+	
 };

@@ -18,6 +18,7 @@ class CHRISTMASREIGNS_API UOverlayWidgetController : public UCRWidgetController
 	GENERATED_BODY()
 public:
 	virtual void BroadcastInitialValues() const override;
+	virtual void BindCallbacksToDependencies() const override;
 	
 private:
 	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
