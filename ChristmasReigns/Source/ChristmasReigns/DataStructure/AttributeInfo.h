@@ -37,6 +37,12 @@ struct FCRAttributeInfo
 	FGameplayAttribute Attribute {};
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	bool bHasAMax {false};
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (EditCondition = "bHasAMax", EditConditionHides))
+	FGameplayAttribute MaxAttribute {};
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (EditCondition = "bHasAMax", EditConditionHides))
 	TSubclassOf<UGameplayEffect> MaxAttributeEffect;
 };
 
