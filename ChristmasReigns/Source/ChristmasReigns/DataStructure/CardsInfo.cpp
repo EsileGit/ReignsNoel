@@ -5,7 +5,9 @@
 
 FCRCardInfo const& UCardsInfo::GetCardInfoForID(FCardIDType const& cardID)
 {
-	FCRCardInfo* pFoundElement = CardsList.FindByPredicate([cardID](FCRCardInfo const& currentCard)
+	checkf(!CardsList.IsEmpty(), TEXT("Cards list needs to be filled, this is the main data of the game"));
+	
+	FCRCardInfo const* pFoundElement = CardsList.FindByPredicate([cardID](FCRCardInfo const& currentCard)
 	{
 		return currentCard.CardIDName == cardID;
 	});
@@ -13,6 +15,5 @@ FCRCardInfo const& UCardsInfo::GetCardInfoForID(FCardIDType const& cardID)
 	if (pFoundElement)
 		return *pFoundElement;
 
-	checkf(!CardsList.IsEmpty(), TEXT("Cards list needs to be filled, this is the main data of the game"));
 	return CardsList[0];
 }

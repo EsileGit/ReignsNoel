@@ -12,7 +12,7 @@
 
 namespace 
 {
-	// ---------------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
 	FWidgetControllerParams GetLocalWidgetControllerParams(UObject const* worldContextObject)
 	{
 		APlayerController * PC = UGameplayStatics::GetPlayerController(worldContextObject, 0);

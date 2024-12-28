@@ -10,6 +10,8 @@
 
 #include "OverlayWidgetController.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCardInfoDelegate, FCRCardInfo, CardInfo);
+
 /**
  * 
  */
@@ -21,6 +23,8 @@ public:
 	virtual void BroadcastInitialValues() const override;
 	virtual void BindCallbacksToDependencies() const override;
 	virtual void SetWidgetControllerParams(FWidgetControllerParams const& WCParams) override;
+	UCardsInfo const* GetCardsInfo() const& {return CardsInfos;}
+	UCardsInfo* ModifyCardsInfo() const& {return CardsInfos;}
 
 	/** FLOW **/
 	UFUNCTION(BlueprintCallable)
@@ -41,9 +45,14 @@ private:
 	FOnAttributeModifiedSignature OnMotherPrideChanged;
 	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
 	FOnAttributeModifiedSignature OnMaxMotherPrideChanged;
+	UPROPERTY(BlueprintAssignable, Category="Card")
+	FOnCardInfoDelegate OnCardInfoDelegate;
 
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UCardsInfo> CardsInfos;
 	
 	FCRCardInfo CurrentCardDisplayed;
+
+	
+	void BroadcastCurrentCardInfos() const;
 };

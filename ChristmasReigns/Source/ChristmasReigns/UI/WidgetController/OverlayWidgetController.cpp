@@ -4,7 +4,9 @@
 #include "OverlayWidgetController.h"
 
 #include "ChristmasReigns/LogChannel.h"
+#include "ChristmasReigns/Game/Manager/CRCardManager.h"
 #include "ChristmasReigns/GameplayAbilitySystem/AttributeSet/CRAttributeSet.h"
+
 
 //----------------------------------------------------------------------------------------------------------------------
 void UOverlayWidgetController::BroadcastInitialValues() const
@@ -19,6 +21,8 @@ void UOverlayWidgetController::BroadcastInitialValues() const
 		OnMaxPopularityChanged.Broadcast(pAttributeSet->GetMaxPopularity());
 		OnMotherPrideChanged.Broadcast(pAttributeSet->GetMotherPride());
 		OnMaxMotherPrideChanged.Broadcast(pAttributeSet->GetMaxMotherPride());
+		
+		BroadcastCurrentCardInfos();
 	}
 }
 
@@ -46,12 +50,18 @@ void UOverlayWidgetController::BindCallbacksToDependencies() const
 		AddLambda([this](FOnAttributeChangeData const& data){OnMaxMotherPrideChanged.Broadcast(data.NewValue);} );
 }
 
+//----------------------------------------------------------------------------------------------------------------------
 void UOverlayWidgetController::SetWidgetControllerParams(FWidgetControllerParams const& WCParams)
 {
 	Super::SetWidgetControllerParams(WCParams);
 
 	checkf(CardsInfos, TEXT("CardsInfo asset has not been referenced in OverlayWidgetController"));
 	CurrentCardDisplayed = CardsInfos->CardsList[0];
+
+	if (UCRCardManager* pCardsManager = GetWorld()->GetSubsystem<UCRCardManager>())
+	{
+		pCardsManager->OnOverlayWCSetup();
+	}
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -59,10 +69,23 @@ void UOverlayWidgetController::OnChoiceSelected(bool isLeftChoice)
 {
 	UE_LOG(LogCR, Log, TEXT("Choosed card %s"), *CurrentCardDisplayed.CardIDName.ToString());
 	
+	if (UCRCardManager* pCardsManager = GetWorld()->GetSubsystem<UCRCardManager>())
+	{
+		FCRChoiceInfo const& choice = isLeftChoice ? CurrentCardDisplayed.LeftChoice : CurrentCardDisplayed.RightChoice;
+		CurrentCardDisplayed = pCardsManager->GetNextCardFromChoice(choice);
+		BroadcastCurrentCardInfos();
+	}
+	
 }
 
+//----------------------------------------------------------------------------------------------------------------------
 void UOverlayWidgetController::OnChoiceHovered(bool isLeftChoice)
 {
 	UE_LOG(LogCR, Log, TEXT("Hovered card %s"), *CurrentCardDisplayed.CardIDName.ToString());
-	
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+void UOverlayWidgetController::BroadcastCurrentCardInfos() const
+{
+	OnCardInfoDelegate.Broadcast(CurrentCardDisplayed);
 }

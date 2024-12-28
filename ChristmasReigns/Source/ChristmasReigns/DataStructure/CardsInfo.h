@@ -46,7 +46,7 @@ struct FCRChoiceInfo
 {
 	GENERATED_BODY()
 	
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FText TextToDisplay;
 
 	UPROPERTY(EditDefaultsOnly)
@@ -64,22 +64,22 @@ struct FCRCardInfo
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FCardIDType CardIDName {""};
 	
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FString CharacterName {""};
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TObjectPtr<UTexture2D> CardImage;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FText CardMainText;
 	
-	UPROPERTY(EditDefaultsOnly, Category=Flow)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Flow)
 	FCRChoiceInfo LeftChoice;
 
-	UPROPERTY(EditDefaultsOnly, Category=Flow)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Flow)
 	FCRChoiceInfo RightChoice;
 
 	UPROPERTY(EditDefaultsOnly, Category=Flow)
