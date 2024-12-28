@@ -3,6 +3,9 @@
 
 #include "CRCardManager.h"
 
+#include "AbilitySystemComponent.h"
+#include "GameplayEffect.h"
+
 #include "ChristmasReigns/LogChannel.h"
 #include "ChristmasReigns/DataStructure/CardsInfo.h"
 #include "ChristmasReigns/GameplayAbilitySystem/Library/CRAbilitySystemLibrary.h"
@@ -27,4 +30,38 @@ FCRCardInfo UCRCardManager::GetNextCardFromChoice(FCRChoiceInfo const& choiceInf
 	const FCardIDType ID = choiceInfo.NextCardIDs[randomIndex];
 
 	return CardsInfo->GetCardInfoForID(ID);
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+void UCRCardManager::ApplyChoice(FCRChoiceInfo const& choiceInfo, UAbilitySystemComponent* pAbilitySystem) const
+{
+
+	if (!choiceInfo.EffectToApplyOnChoice)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("GameplayEffectClass of %s is invalid!"), *choiceInfo.TextToDisplay.ToString());
+		return;
+	}
+
+	if (!pAbilitySystem)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No Ability System Component found on actor!"));
+		return;
+	}
+
+	// Create an effect context for the actor (self-cast)
+	FGameplayEffectContextHandle EffectContext = pAbilitySystem->MakeEffectContext();
+	EffectContext.AddSourceObject(pAbilitySystem);
+
+	// Create a spec handle for the gameplay effect
+	FGameplayEffectSpecHandle SpecHandle = pAbilitySystem->MakeOutgoingSpec(choiceInfo.EffectToApplyOnChoice, 1.0f, EffectContext);
+
+	if (SpecHandle.IsValid())
+	{
+		pAbilitySystem->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+		UE_LOG(LogTemp, Log, TEXT("Applied GameplayEffect to self!"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Failed to create a valid GameplayEffectSpecHandle!"));
+	}
 }

@@ -72,6 +72,7 @@ void UOverlayWidgetController::OnChoiceSelected(bool isLeftChoice)
 	if (UCRCardManager* pCardsManager = GetWorld()->GetSubsystem<UCRCardManager>())
 	{
 		FCRChoiceInfo const& choice = isLeftChoice ? CurrentCardDisplayed.LeftChoice : CurrentCardDisplayed.RightChoice;
+		pCardsManager->ApplyChoice(choice, AbilitySystemComponent);
 		CurrentCardDisplayed = pCardsManager->GetNextCardFromChoice(choice);
 		BroadcastCurrentCardInfos();
 	}
