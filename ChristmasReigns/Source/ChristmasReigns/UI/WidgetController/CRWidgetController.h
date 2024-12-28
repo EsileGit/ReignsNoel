@@ -46,7 +46,7 @@ class CHRISTMASREIGNS_API UCRWidgetController : public UObject
 	GENERATED_BODY()
 	
 public:
-	void SetWidgetControllerParams(FWidgetControllerParams const& WCParams);
+	virtual void SetWidgetControllerParams(FWidgetControllerParams const& WCParams);
 	
 	UFUNCTION(BlueprintCallable)
 	virtual void BroadcastInitialValues() const {}

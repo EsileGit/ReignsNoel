@@ -3,6 +3,7 @@
 
 #include "OverlayWidgetController.h"
 
+#include "ChristmasReigns/LogChannel.h"
 #include "ChristmasReigns/GameplayAbilitySystem/AttributeSet/CRAttributeSet.h"
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -43,4 +44,25 @@ void UOverlayWidgetController::BindCallbacksToDependencies() const
 	AddLambda([this](FOnAttributeChangeData const& data){OnMotherPrideChanged.Broadcast(data.NewValue);} );
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(pAttributeSet->GetMaxMotherPrideAttribute()).
 		AddLambda([this](FOnAttributeChangeData const& data){OnMaxMotherPrideChanged.Broadcast(data.NewValue);} );
+}
+
+void UOverlayWidgetController::SetWidgetControllerParams(FWidgetControllerParams const& WCParams)
+{
+	Super::SetWidgetControllerParams(WCParams);
+
+	checkf(CardsInfos, TEXT("CardsInfo asset has not been referenced in OverlayWidgetController"));
+	CurrentCardDisplayed = CardsInfos->CardsList[0];
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+void UOverlayWidgetController::OnChoiceSelected(bool isLeftChoice)
+{
+	UE_LOG(LogCR, Log, TEXT("Choosed card %s"), *CurrentCardDisplayed.CardIDName.ToString());
+	
+}
+
+void UOverlayWidgetController::OnChoiceHovered(bool isLeftChoice)
+{
+	UE_LOG(LogCR, Log, TEXT("Hovered card %s"), *CurrentCardDisplayed.CardIDName.ToString());
+	
 }

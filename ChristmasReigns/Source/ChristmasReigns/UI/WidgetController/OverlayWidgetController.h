@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "CRWidgetController.h"
 
+#include "ChristmasReigns/DataStructure/CardsInfo.h"
 #include "ChristmasReigns/Game/Tool/DelegateTypes.h"
 
 #include "OverlayWidgetController.generated.h"
@@ -19,6 +20,13 @@ class CHRISTMASREIGNS_API UOverlayWidgetController : public UCRWidgetController
 public:
 	virtual void BroadcastInitialValues() const override;
 	virtual void BindCallbacksToDependencies() const override;
+	virtual void SetWidgetControllerParams(FWidgetControllerParams const& WCParams) override;
+
+	/** FLOW **/
+	UFUNCTION(BlueprintCallable)
+	void OnChoiceSelected(bool isLeftChoice);
+	UFUNCTION(BlueprintCallable)
+	void OnChoiceHovered(bool isLeftChoice);
 	
 private:
 	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
@@ -33,4 +41,9 @@ private:
 	FOnAttributeModifiedSignature OnMotherPrideChanged;
 	UPROPERTY(BlueprintAssignable, Category="GAS|Attributes")
 	FOnAttributeModifiedSignature OnMaxMotherPrideChanged;
+
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UCardsInfo> CardsInfos;
+	
+	FCRCardInfo CurrentCardDisplayed;
 };

@@ -20,6 +20,22 @@ struct FCardIDType
 
 	UPROPERTY(EditDefaultsOnly)
 	FString Name;
+
+	// operator for this type
+	bool operator==(const FCardIDType& other) const
+	{
+		return Name == other.Name;
+	}
+
+	operator FString() const
+	{
+		return Name;
+	}
+
+	FString ToString() const
+	{
+		return Name;
+	}
 };
 
 /**
@@ -80,4 +96,6 @@ class CHRISTMASREIGNS_API UCardsInfo : public UDataAsset
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(TitleProperty="{CardIDName}"))
 	TArray<FCRCardInfo> CardsList;
+
+	FCRCardInfo const& GetCardInfoForID(FCardIDType const& cardID);
 };
