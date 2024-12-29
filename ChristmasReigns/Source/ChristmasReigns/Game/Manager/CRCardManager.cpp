@@ -38,7 +38,7 @@ void UCRCardManager::ApplyChoice(FCRChoiceInfo const& choiceInfo, UAbilitySystem
 
 	if (!choiceInfo.EffectToApplyOnChoice)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("GameplayEffectClass of %s is invalid!"), *choiceInfo.TextToDisplay.ToString());
+		UE_LOG(LogTemp, Log, TEXT("GameplayEffectClass of choice [%s] is invalid!"), *choiceInfo.TextToDisplay.ToString());
 		return;
 	}
 
